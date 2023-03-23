@@ -8,19 +8,14 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     * @return void
      */
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location');
             $table->longText('description');
-            $table->string('team_image');
-            $table->string('wins');
-            $table->string('losses');
-            $table->string('points');
+            $table->string('picture');
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('players');
     }
 };
