@@ -15,4 +15,9 @@ class Team extends Model
     {
         return $this->hasMany(Player::class);
     }
+
+    public function fixtures()
+    {
+        return $this->belongsToMany(Fixture::class)->withTimestamps();
+    }
 }
