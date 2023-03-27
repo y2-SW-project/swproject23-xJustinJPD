@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::resource('/teams', TeamController::class)->middleware(['auth']);
+Route::get('/teams', [App\Http\Controllers\TeamController::class, 'index'])->name('index');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');

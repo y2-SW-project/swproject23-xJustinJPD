@@ -15,13 +15,6 @@ class TeamController extends Controller
     public function index()
     {
                 // authenticates that this team is owned by the user using the software
-
-        
-
-                $teams = Team::where('user_id',Auth::id())->latest('updated_at')->paginate(5);
-                $teams->each(function($team){
-        
-                });
         
                 $user = Auth::user();
         
@@ -31,7 +24,7 @@ class TeamController extends Controller
         
                 // returns the index.blade.php view with the teams variables included in the transaction
         
-                return view ('teams.index')->with('teams', $teams);
+                return view ('index');
     }
 
     /**
