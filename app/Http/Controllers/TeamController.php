@@ -16,6 +16,8 @@ class TeamController extends Controller
     {
                 // authenticates that this team is owned by the user using the software
         
+                $teams = Team::all();
+
                 $user = Auth::user();
         
                 // $teams = team::paginate(5);
@@ -24,7 +26,7 @@ class TeamController extends Controller
         
                 // returns the index.blade.php view with the teams variables included in the transaction
         
-                return view ('index');
+                return view ('index')->with('teams', $teams);
     }
 
     /**
@@ -39,7 +41,7 @@ class TeamController extends Controller
 
         $teams = Team::all(); 
 
-        return view ('teams.create')->with('teams', $teams);
+        return view ('create')->with('teams', $teams);
     }
 
     /**
@@ -54,16 +56,36 @@ class TeamController extends Controller
 
                         $request->validate([
                             'name' => 'required|max:120',
-                            'address' => 'required|max:400',
+                            'location' => 'required|max:400',
+                            'description' => 'required|max:500',
+                            'team_image' => 'file|image',
+                            'wins' => 'required|max:120',
+                            'losses' => 'required|max:120',
+                            'points' => 'required|max:120',
         
                         ]);
+
+                                // stores the team image file inside the $team_image variable
+
+                            $team_image = $request->file('team_image');
+                            $extension = $team_image->getClientOriginalExtension();
+
+                            // creates a filename for the image that is unique based on the name input field and the date of creation
+                            $filename = date('Y-m-d-His') . '_' . $request->input('name') . '.' . $extension;
+
+                            // stores the car image inside the public/images folder to be accessed later
+                            $path = $team_image->storeAs('public/images', $filename);
         
                         // creates the team variable as a version of the team object and sets the parameters for this object
                 
                         $team = new Team([
                             'name' => $request->name,
-                            'address'=> $request->address,
-        
+                            'location'=> $request->location,
+                            'description'=> $request->description,
+                            'team_image'=> $filename,
+                            'wins'=> $request->wins,
+                            'losses'=> $request->losses,
+                            'points'=> $request->points
                         ]);
                 
                         // saves the team
@@ -74,7 +96,7 @@ class TeamController extends Controller
                         
                 
                         // returns the index.blade.php view
-                        return to_route('teams.index');
+                        return to_route('index');
     }
 
     /**
