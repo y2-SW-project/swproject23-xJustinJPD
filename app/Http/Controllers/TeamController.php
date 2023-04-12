@@ -11,6 +11,8 @@ class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -26,7 +28,7 @@ class TeamController extends Controller
         
                 // returns the index.blade.php view with the teams variables included in the transaction
         
-                return view ('index')->with('teams', $teams);
+                return view ('teams.index')->with('teams', $teams);
     }
 
     /**
@@ -39,9 +41,9 @@ class TeamController extends Controller
         // returns the create.blade.php view
         $user = Auth::user();
 
-        $teams = Team::all(); 
+        // $teams = Team::all(); 
 
-        return view ('create')->with('teams', $teams);
+        return view ('teams.create');
     }
 
     /**
@@ -85,12 +87,11 @@ class TeamController extends Controller
                             'team_image'=> $filename,
                             'wins'=> $request->wins,
                             'losses'=> $request->losses,
-                            'points'=> $request->points
+                            'points'=> $request->points,
                         ]);
                 
                         // saves the team
                         $team->save();
-                
                         $user = Auth::user();
                 
                         

@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -16,8 +18,9 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+            </div>
 
-                @forelse ($teams as $team)
+            @forelse ($teams as $team)
             <div class="">
                 <a href="">{{ $team->name }}
                     <!-- <img src="{{asset('storage/images/' . $team->team_image) }}" width="150" /> -->
@@ -34,8 +37,7 @@
             @empty
             <p class="font-bold text-5xl">No teams to display.</p> 
         @endforelse
-
-            </div>
+        <a href="{{route('teams.create')}}" class="btn-link ml-auto">Create</a>
         </div>
     </div>
 </div>
