@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
+use App\Models\Player;
 
 class TeamController extends Controller
 {
@@ -19,6 +20,7 @@ class TeamController extends Controller
                 // authenticates that this team is owned by the user using the software
         
                 $teams = Team::all();
+                $players = Player::all();
 
                 $user = Auth::user();
         
@@ -28,7 +30,7 @@ class TeamController extends Controller
         
                 // returns the index.blade.php view with the teams variables included in the transaction
         
-                return view ('teams.index')->with('teams', $teams);
+                return view ('teams.index')->with('teams', $teams)->with('player', $players);
     }
 
     /**
@@ -142,13 +144,21 @@ class TeamController extends Controller
                         // validating each field
                         $request->validate([
                             'name' => 'required|max:120',
-                            'address' => 'required|max:400',
+                            'location' => 'required|max:400',
+                            'description' => 'required|max:500',
+                            'wins' => 'required|max:120',
+                            'losses' => 'required|max:120',
+                            'points' => 'required|max:120',
                         ]);
                 
                         // defining that inputting each of these values will update its specified value in the database/object
                         $team->update([
-                            'name'=> $request -> name,
-                            'address' => $request -> address,
+                            'name' => $request->name,
+                            'location'=> $request->location,
+                            'description'=> $request->description,
+                            'wins'=> $request->wins,
+                            'losses'=> $request->losses,
+                            'points'=> $request->points,
                         
                         ]);
                 
@@ -172,6 +182,6 @@ class TeamController extends Controller
                         $user = Auth::user();
                 
                         // returning the index view with a successful delete messge
-                        return to_route('teams.index')->with('success', 'team deleted successfully.');
+                        return to_route('index');
     }
 }

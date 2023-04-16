@@ -21,14 +21,9 @@ class PlayerController extends Controller
 
         $user = Auth::user();
 
-        $players = Player::where('user_id',Auth::id())->latest('updated_at');
-        $players->each(function($car){
-
-        });
-
         // returns the index.blade.php view with the players variables included in the transaction
 
-        return view ('players.index')->with('players', $players);
+        return view ('players.index');
     }
 
     /**
@@ -41,9 +36,9 @@ class PlayerController extends Controller
         // returns the create.blade.php view
         $user = Auth::user();
 
-        $teams = Team::all();
+        $players = Player::all();
 
-        return view ('players.create')->with('teams', $teams);
+        return view ('players.create')->with('player', $players);
     }
 
     /**
