@@ -17,13 +17,18 @@ class PlayerController extends Controller
     public function index()
     {
 
-        // authenticates that this car is owned by the user using the software
+        $teams = Team::all();
+        $players = Player::all();
 
         $user = Auth::user();
 
-        // returns the index.blade.php view with the players variables included in the transaction
+        // $teams = team::paginate(5);
 
-        return view ('players.index');
+        // $teams = team::with('manufacturer')->get();
+
+        // returns the index.blade.php view with the teams variables included in the transaction
+
+        return view ('teams.index')->with('teams', $teams)->with('player', $players);
     }
 
     /**
@@ -37,8 +42,9 @@ class PlayerController extends Controller
         $user = Auth::user();
 
         $players = Player::all();
+        $teams = Team::all();
 
-        return view ('players.create')->with('player', $players);
+        return view ('players.create')->with('players', $players)->with('teams', $teams);
     }
 
     /**
@@ -53,36 +59,31 @@ class PlayerController extends Controller
         // validates each field used by the player object, defining parameters for validation is on the right side
 
         $request->validate([
-            'make' => 'required|max:120',
-            'model' => 'required|max:120',
-            'colour' => 'required|max:120',
-            'desc' => 'required|max:500',
-            'player_image' => 'file|image',
-            'manufacturer_id'=> 'required'
+            'name' => 'required|max:120',
+            'description' => 'required|max:120',
+            'picture' => 'file|image',
+            'team_id'=> 'required'
         ]);
 
-        // stores the player image file inside the $player_image variable
+        // stores the player image file inside the $picture variable
 
-        $player_image = $request->file('player_image');
-        $extension = $player_image->getClientOriginalExtension();
+        $picture = $request->file('picture');
+        $extension = $picture->getClientOriginalExtension();
 
-        // creates a filename for the image that is unique based on the make input field and the date of creation
-        $filename = date('Y-m-d-His') . '_' . $request->input('make') . '.' . $extension;
+        // creates a filename for the image that is unique based on the name input field and the date of creation
+        $filename = date('Y-m-d-His') . '_' . $request->input('name') . '.' . $extension;
 
         // stores the player image inside the public/images folder to be accessed later
-        $path = $player_image->storeAs('public/images', $filename);
+        $path = $picture->storeAs('public/images', $filename);
 
 
 
         // creates the player variable as a version of the player object and sets the parameters for this object
 
         $player = new Player([
-            'user_id' => Auth::id(),
-            'name' => $request->make,
-            'model'=> $request->model,
-            'colour'=> $request->colour,
-            'player_image' => $filename,
-            'desc'=> $request->desc,
+            'name' => $request->name,
+            'description'=> $request->description,
+            'picture'=> $filename,
             'team_id'=> $request->team_id,
         ]);
 
@@ -94,7 +95,7 @@ class PlayerController extends Controller
         
 
         // returns the index.blade.php view
-        return to_route('players.index');
+        return to_route('teams.index');
     }
 
     /**
