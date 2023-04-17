@@ -109,14 +109,15 @@ class TeamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Team $team)
-    {
+    {   
+        $players= Player::all();
         $user = Auth::user();
 
         if(!Auth::id()) {
             return abort(403);
         }
 
-        return view ('teams.show')->with('team',$team);
+        return view ('teams.show')->with('team',$team)->with('players', $players);
     }
 
     /**

@@ -104,10 +104,9 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Player $player)
     {
-        // verifies the player is of the user and then returns the show.blde.php view bringing the player object clicked on by the user
-        $player = player::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
 
         $user = Auth::user();
         $teams = Team::all();
@@ -122,14 +121,12 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Player $player)
     {
-        // same thing as show but this time the edit.blade.php view
-        $player = Player::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-
+        $teams = Team::all();
         $user = Auth::user();
 
-        return view ('players.edit')->with('player', $player);
+        return view ('players.edit')->with('player', $player)->with('teams', $teams);
     }
 
     /**
@@ -139,25 +136,21 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Player $player)
     {
-        // verification of user and player
-        $player = Player::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         // validating each field
         $request->validate([
-            'make' => 'required|max:120',
-            'model' => 'required|max:120',
-            'colour' => 'required|max:120',
-            'desc' => 'required|max:500',
+            'name' => 'required|max:120',
+            'description' => 'required|max:120',
+            'team_id'=> 'required'
         ]);
 
         // defining that inputting each of these values will update its specified value in the database/object
         $player->update([
-            'name'=> $request -> make,
-            'model' => $request -> model,
-            'colour' => $request -> colour,
-            'desc' => $request -> desc,
+            'name' => $request->name,
+            'description'=> $request->description,
+            'team_id'=> $request->team_id,
         ]);
 
         $user = Auth::user();

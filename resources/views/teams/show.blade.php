@@ -40,6 +40,26 @@
                 </h2>
 
                 <p class="mt-6 whitespace-pre-wrap">{{ ($team->description) }}</p>
+
+                <hr>
+
+                @forelse ($players as $player)
+            <div class="">
+                <a href="{{ route('players.show', $player->id) }}">
+                    <img src="{{ asset('storage/images/' . $player->picture) }}"/>
+                
+                
+
+                <h2 class=""> 
+                    <a href="">{{ $player->name }}</a>
+                </h2>
+                </a>
+            </div>
+
+            {{-- empty function incase of user having no teams --}}
+            @empty
+            <p class="font-bold text-5xl">No players to display.</p> 
+        @endforelse
         
     </div>
 </div>
