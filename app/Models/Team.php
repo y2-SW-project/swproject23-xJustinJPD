@@ -18,6 +18,6 @@ class Team extends Model
 
     public function fixtures()
     {
-        return $this->belongsToMany(Fixture::class)->withTimestamps();
+        return $this->belongsToMany('App\Models\Fixture', 'fixture_team');
     }
 }

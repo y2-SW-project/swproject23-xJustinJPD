@@ -7,25 +7,26 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            @forelse ($teams as $team)
+            @forelse ($fixtures as $fixture)
             <div class="">
-                <a href="{{ route('teams.show', $team->id) }}">
-                    <img src="{{ asset('storage/images/' . $team->team_image) }}"/>
+                <a href="{{ route('fixtures.show', $fixture->id) }}">
+                    <img src="{{ asset('storage/images/') }}"/>
                 
-                
+                    @foreach ($fixture->teams as $team)
+                            <h2> {{$team->name}} </h2>
+                    @endforeach
 
                 <h2 class=""> 
-                    <a href="">{{ $team->name }}</a>
+                    <a href="">Fixture</a>
                 </h2>
                 </a>
             </div>
 
             {{-- empty function incase of user having no teams --}}
             @empty
-            <p class="font-bold text-5xl">No teams to display.</p> 
+            <p class="font-bold text-5xl">No fixtures to display.</p> 
         @endforelse
-        <a href="{{route('teams.create')}}" class="btn-link ml-auto">Create Team</a>
-        <a href="{{route('players.create')}}" class="btn-link ml-auto">Create Player</a>
+        <a href="{{route('fixtures.create')}}" class="btn-link ml-auto">Create Fixture</a>
         </div>
     </div>
 </div>

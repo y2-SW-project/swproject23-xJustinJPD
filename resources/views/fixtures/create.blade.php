@@ -7,12 +7,12 @@
 
         <!-- CHECKOUT TAG -->
         <div class="container d-flex justify-content-center mt-1">
-            <h2>Create Player</h2>
+            <h2>Create Fixture</h2>
         </div>
         <!-- CHECKOUT TAG END -->
 
         <!-- CHECKOUT CONTENT -->
-        <form action="{{ route('players.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('fixtures.store') }}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="container ps-0 pe-5">
             <div class="row d-sm-block d-lg-flex ">
@@ -21,12 +21,16 @@
                     <!-- EMAIL -->
                     <div class="container border border-1 border-dark-subtle rounded-2 mx-4 mt-3">
                         <div class="container d-flex justify content start mb-1 mt-3">
-                            <h4 style="font-weight: 500;">Player Naming:</h4>
+                            <h4 style="font-weight: 500;">Date & Location:</h4>
                         </div>
                         <div class="container">
                             <div class="form-floating mb-3">
-                                <input type="name" name="name" class="form-control" autocomplete="off" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Player Name</label>
+                                <input type="date" name="date" class="form-control" autocomplete="off" id="floatingInput" placeholder="March 13th 2023">
+                                <label for="floatingInput">Date</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="location" name="location" class="form-control" autocomplete="off" id="floatingInput" placeholder="March 13th 2023">
+                                <label for="floatingInput">Location</label>
                             </div>
                         </div>
                     </div>
@@ -36,54 +40,29 @@
                     <!-- ADDRESS -->
                     <div class="container border border-1 border-dark-subtle rounded-2 mx-4 mt-3">
                         <div class="container d-flex justify content start mb-1 mt-3">
-                            <h4 style="font-weight: 500;">Player Information:</h4>
+                            <h4 style="font-weight: 500;">Teams:</h4>
                         </div>
                         <div class="container">
-                            <div class="form-floating mb-3">
-                                <input type="description" name="description" class="form-control" autocomplete="off" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Description</label>
-                            </div>
 
                             <div class="form-group">
-                                <label for="team">Team</label>
-                                <select name="team_id">
-                                    @foreach ($teams as $team)
-                                        <option value="{{$team->id}}">
-                                            {{$team->name}}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="teams">
+                                    <strong>Teams Involved</strong> <br>
+                                </label>
+                                @foreach ($teams as $team)
+                                    <input type="checkbox" value="{{$team->id}}" name="teams[]">
+                                    {{$team->name}}
+                                @endforeach
                             </div>
                         </div>
                     </div>
                     <!-- ADDRESS END -->
 
-                    <!-- PAYMENT + CONTACT -->
-                    <div class="container border border-1 border-dark-subtle rounded-2 mx-4 mt-3">
-                        <div class="container d-flex justify content start mb-1 mt-3">
-                            <h4 style="font-weight: 500;">Player Images:</h4>
-                        </div>
-                        <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="file" name="picture" class="form-control" id="image" placeholder="image">
-                                    <label class="" for="image">Player Image</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="form-floating mb-3">
-                        </div> -->
-                    </div>
-
-                    </div>
-                    <!-- PAYMENT + CONTACT END -->
                 </div>
                 <!-- CHECKOUT CONTENT -->
                 <div class="col">
                     <div class="container border border-1 border-dark-subtle rounded-2 mx-4 mt-3 sticky-top added">
                         <div class="container d-flex justify content start mb-1 mt-3">
-                            <h4 style="font-weight: 500;">New Player:</h4>
+                            <h4 style="font-weight: 500;">New Fixture:</h4>
                         </div>
                         <div class="row mb-3">
                             <div class="col-3 d-flex justify-content-end">

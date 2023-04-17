@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
+            $table->string('date');
+            $table->string('location');
             $table->timestamps();
         });
     }

@@ -13,6 +13,6 @@ class Fixture extends Model
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class)->withTimestamps();
+        return $this->belongsToMany('App\Models\Team', 'fixture_team');
     }
 }

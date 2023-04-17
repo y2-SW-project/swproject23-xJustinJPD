@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TeamController as MainTeamController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -39,5 +40,7 @@ Auth::routes();
 
 Route::resource('/teams', MainTeamController::class)->middleware(['auth'])->names('teams');
 Route::resource('/players', PlayerController::class)->middleware(['auth'])->names('players');
+Route::resource('/fixtures', FixtureController::class)->middleware(['auth'])->names('fixtures');
 Route::get('/teams', [App\Http\Controllers\TeamController::class, 'index'])->name('index');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+Route::get('/fixtures/{id}/check-teams', [FixtureController::class, 'checkFixtureTeams']);

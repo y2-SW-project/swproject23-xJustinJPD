@@ -26,6 +26,7 @@
         @endforelse
         <a href="{{route('teams.create')}}" class="btn-link ml-auto">Create Team</a>
         <a href="{{route('players.create')}}" class="btn-link ml-auto">Create Player</a>
+        <a href="{{route('fixtures.index')}}" class="btn-link ml-auto">Fixtures</a>
         </div>
     </div>
 </div>

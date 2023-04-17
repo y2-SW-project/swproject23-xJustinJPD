@@ -8,15 +8,15 @@
             <div class="d-flex">
 
             {{-- link to the edit player view --}}
-            <a href="{{route('players.edit', $player)}}" class="btn btn-link ml-auto">Edit Player</a>
+            <a href="{{route('fixtures.edit', $fixture)}}" class="btn btn-link ml-auto">Edit Fixture</a>
 
             {{-- form designed to delete a note --}}
-            <form action="{{ route('players.destroy', $player) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('fixtures.destroy', $fixture) }}" method="post" enctype="multipart/form-data">
             {{-- method and csrf from blade functionality --}}
             @method('delete')
             @csrf
             {{-- button to delete with a confirmation button to make sure --}}
-            <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('Are you sure you want to delete this player?')">Delete Player</button>
+            <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('Are you sure you want to delete this fixture?')">Delete Fixture</button>
             </form>
 
             
@@ -28,10 +28,15 @@
                 
                 {{-- displaying each element of the player --}}
                 <h2 class="font-bold text-4xl"> 
-                    {{ $player->name }}
+                    {{ $fixture->location }}
                 </h2>
 
-                <p class="mt-6 whitespace-pre-wrap">{{ ($player->description) }}</p>
+
+                @foreach ($fixture->teams as $team)
+                    <h2>{{$team->name}}</h2>
+                @endforeach
+
+                
         
     </div>
 </div>
