@@ -69,7 +69,7 @@ class FixtureController extends Controller
                 
                         $user = Auth::user();
                 
-                        
+                        $fixture->teams()->attach($request->teams);
                 
                         // returns the index.blade.php view
                         return to_route('fixtures.index');
