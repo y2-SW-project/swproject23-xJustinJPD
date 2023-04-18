@@ -90,25 +90,54 @@ class FixtureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Fixture $fixture)
     {
-        //
+        $user = Auth::user();
+        $teams = Team::all();
+
+        return view ('fixtures.edit')->with('fixture', $fixture)->with('teams', $teams);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Fixture $fixture)
     {
-        //
+                                // validating each field
+                                $request->validate([
+                                    'date' => 'required|max:120',
+                                    'location' => 'required|max:400',
+                                ]);
+                        
+                                // defining that inputting each of these values will update its specified value in the database/object
+                                $fixture->update([
+                                    'date' => $request->date,
+                                    'location'=> $request->location,
+                                
+                                ]);
+                        
+                                $user = Auth::user();
+
+                                $fixture->teams()->attach($request->teams);
+                        
+                                //  giving us the show.blade.php view along with a success tag saying that the update was completed
+                                return to_route('fixtures.show', $fixture)->with('success', 'fixture updated succesfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Fixture $fixture)
     {
-        //
+
+        // deleting the player object specified
+        $fixture->teams()->detach();
+        $fixture->delete();
+
+        $user = Auth::user();
+
+        // returning the index view with a successful delete messge
+        return to_route('fixtures.index')->with('success', 'fixture deleted successfully.');
     }
 
     public function checkFixtureTeams($id)
