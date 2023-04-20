@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\TeamController as MainTeamController;
-use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\FixtureController;
+use App\Http\Controllers\admin\TeamController as AdminTeamController;
+use App\Http\Controllers\user\TeamController as UserTeamController;
+use App\Http\Controllers\admin\PlayerController as AdminPlayerController;
+use App\Http\Controllers\user\PlayerController as UserPlayerController;
+use App\Http\Controllers\admin\FixtureController as AdminFixtureController;
+use App\Http\Controllers\user\FixtureController as UserFixtureController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +26,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.teams.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::resource('/teams', MainTeamController::class)->middleware(['auth']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,9 +39,12 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::resource('/teams', MainTeamController::class)->middleware(['auth'])->names('teams');
-Route::resource('/players', PlayerController::class)->middleware(['auth'])->names('players');
-Route::resource('/fixtures', FixtureController::class)->middleware(['auth'])->names('fixtures');
-Route::get('/teams', [App\Http\Controllers\TeamController::class, 'index'])->name('index');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+Route::resource('/admin/teams', AdminTeamController::class)->middleware(['auth'])->names('admin.teams');
+Route::resource('/user/teams', UserTeamController::class)->middleware(['auth'])->names('user.teams')->only(['index','show']);
+Route::resource('/admin/players', AdminPlayerController::class)->middleware(['auth'])->names('admin.players');
+Route::resource('/user/players', UserPlayerController::class)->middleware(['auth'])->names('user.players')->only(['show']);
+Route::resource('/admin/fixtures', AdminFixtureController::class)->middleware(['auth'])->names('admin.fixtures');
+Route::resource('/user/fixtures', UserFixtureController::class)->middleware(['auth'])->names('user.fixtures')->only(['index','show']);
+Route::get('/admin/teams', [App\Http\Controllers\Admin\AdminTeamController::class, 'index'])->name('index');
+Route::get('/home', [App\Http\Controllers\Admin\AdminTeamController::class, 'index'])->name('home.index');
 Route::get('/fixtures/{id}/check-teams', [FixtureController::class, 'checkFixtureTeams']);

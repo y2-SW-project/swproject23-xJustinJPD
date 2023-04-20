@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Fixture;
+
 
 
 class FixtureController extends Controller
