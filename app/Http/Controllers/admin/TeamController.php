@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,6 +23,7 @@ class TeamController extends Controller
                 $players = Player::all();
 
                 $user = Auth::user();
+                $user->authorizeRoles('admin');
         
                 // $teams = team::paginate(5);
         
@@ -30,7 +31,7 @@ class TeamController extends Controller
         
                 // returns the index.blade.php view with the teams variables included in the transaction
         
-                return view ('teams.index')->with('teams', $teams)->with('player', $players);
+                return view ('admin.teams.index')->with('teams', $teams)->with('player', $players);
     }
 
     /**
@@ -42,10 +43,11 @@ class TeamController extends Controller
     {
         // returns the create.blade.php view
         $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         // $teams = Team::all(); 
 
-        return view ('teams.create');
+        return view ('admin.teams.create');
     }
 
     /**
@@ -95,11 +97,12 @@ class TeamController extends Controller
                         // saves the team
                         $team->save();
                         $user = Auth::user();
+                        $user->authorizeRoles('admin');
                 
                         
                 
                         // returns the index.blade.php view
-                        return to_route('index');
+                        return to_route('admin.teams.index');
     }
 
     /**
@@ -112,12 +115,13 @@ class TeamController extends Controller
     {   
         $players= Player::all();
         $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         if(!Auth::id()) {
             return abort(403);
         }
 
-        return view ('teams.show')->with('team',$team)->with('players', $players);
+        return view ('admin.teams.show')->with('team',$team)->with('players', $players);
     }
 
     /**
@@ -129,8 +133,9 @@ class TeamController extends Controller
     public function edit(Team $team)
     {
         $user = Auth::user();
+        $user->authorizeRoles('admin');
 
-        return view ('teams.edit')->with('team', $team);
+        return view ('admin.teams.edit')->with('team', $team);
     }
 
     /**
@@ -164,9 +169,10 @@ class TeamController extends Controller
                         ]);
                 
                         $user = Auth::user();
+                        $user->authorizeRoles('admin');
                 
                         //  giving us the show.blade.php view along with a success tag saying that the update was completed
-                        return to_route('teams.show', $team)->with('success', 'Team updated succesfully.');
+                        return to_route('admin.teams.show', $team)->with('success', 'Team updated succesfully.');
     }
 
     /**
@@ -181,8 +187,9 @@ class TeamController extends Controller
                         $team->delete();
         
                         $user = Auth::user();
+                        $user->authorizeRoles('admin');
                 
                         // returning the index view with a successful delete messge
-                        return to_route('index');
+                        return to_route('admin.teams.index');
     }
 }

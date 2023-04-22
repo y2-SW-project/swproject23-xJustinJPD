@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +30,30 @@ class HomeController extends Controller
     {
 
         $user = Auth::user();
-        $home = 'teams.index';
+        $home = 'home';
+
+        if($user->hasRole('admin')){
+            $home = 'admin.teams.index';
+        }
+        else if ($user->hasRole('user')){
+            $home = 'user.teams.index';
+        }
+
+        return redirect()->route($home);
+    }
+
+    public function fixtureIndex(Request $request)
+    {
+
+        $user = Auth::user();
+        $home = 'home';
+
+        if($user->hasRole('admin')){
+            $home = 'admin.fixtures.index';
+        }
+        else if ($user->hasRole('user')){
+            $home = 'user.fixtures.index';
+        }
 
         return redirect()->route($home);
     }

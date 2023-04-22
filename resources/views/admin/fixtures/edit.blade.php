@@ -12,7 +12,7 @@
         <!-- CHECKOUT TAG END -->
 
         <!-- CHECKOUT CONTENT -->
-        <form action="{{ route('fixtures.update', $fixture) }}" method="post">
+        <form action="{{ route('admin.fixtures.update', $fixture) }}" method="post">
             @method('put')
             @csrf
         <div class="container ps-0 pe-5">
@@ -67,7 +67,7 @@
                         <div class="container mb-3 d-flex justify-content-center">
                             <a href="" style="text-decoration: none; color: rgb(0, 0, 0);">
                                 <button class="check rounded-3 btn d-block justify-content-center bg-success" style="width: 20rem;">
-                                    <h4 class="m-0 fw-normal text-white">Create</h4>
+                                    <h4 class="m-0 fw-normal text-white">Update</h4>
                                 </button>
                         </div>
                     </div>

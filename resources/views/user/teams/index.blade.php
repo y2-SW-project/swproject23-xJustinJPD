@@ -9,7 +9,7 @@
 
             @forelse ($teams as $team)
             <div class="">
-                <a href="{{ route('teams.show', $team->id) }}">
+                <a href="{{ route('user.teams.show', $team->id) }}">
                     <img src="{{ asset('storage/images/' . $team->team_image) }}"/>
                 
                 
@@ -24,9 +24,7 @@
             @empty
             <p class="font-bold text-5xl">No teams to display.</p> 
         @endforelse
-        <a href="{{route('teams.create')}}" class="btn-link ml-auto">Create Team</a>
-        <a href="{{route('players.create')}}" class="btn-link ml-auto">Create Player</a>
-        <a href="{{route('fixtures.index')}}" class="btn-link ml-auto">Fixtures</a>
+        <a href="{{route('user.fixtures.index')}}" class="btn-link ml-auto">Fixtures</a>
         </div>
     </div>
 </div>

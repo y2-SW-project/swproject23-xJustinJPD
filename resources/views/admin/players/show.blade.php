@@ -8,10 +8,10 @@
             <div class="d-flex">
 
             {{-- link to the edit player view --}}
-            <a href="{{route('players.edit', $player)}}" class="btn btn-link ml-auto">Edit Player</a>
+            <a href="{{route('admin.players.edit', $player)}}" class="btn btn-link ml-auto">Edit Player</a>
 
             {{-- form designed to delete a note --}}
-            <form action="{{ route('players.destroy', $player) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.players.destroy', $player) }}" method="post" enctype="multipart/form-data">
             {{-- method and csrf from blade functionality --}}
             @method('delete')
             @csrf

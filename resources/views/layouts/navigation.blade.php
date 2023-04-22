@@ -5,21 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('teams.index') }}">
+                    <a href="{{ route('home.index') }}">
                         <h1>League Sense</h1>
                     </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('teams.index')" :active="request()->routeIs('dashboard')">
-                        {{ __('Index') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('teams.create')" :active="request()->routeIs('dashboard')">
-                        {{ __('create') }}
-                    </x-nav-link>
                 </div>
             </div>
 
@@ -72,7 +60,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('teams.index')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('home.index')" :active="request()->routeIs('dashboard')">
                 {{ __('Index') }}
             </x-responsive-nav-link>
         </div>

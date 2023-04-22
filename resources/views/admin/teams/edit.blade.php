@@ -12,7 +12,7 @@
         <!-- CHECKOUT TAG END -->
 
         <!-- CHECKOUT CONTENT -->
-        <form action="{{ route('teams.update', $team) }}" method="post">
+        <form action="{{ route('admin.teams.update', $team) }}" method="post">
             @method('put')
             @csrf
         <div class="container ps-0 pe-5">

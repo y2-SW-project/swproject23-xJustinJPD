@@ -9,7 +9,7 @@
 
             @forelse ($fixtures as $fixture)
             <div class="">
-                <a href="{{ route('fixtures.show', $fixture->id) }}">
+                <a href="{{ route('user.fixtures.show', $fixture->id) }}">
                     <img src="{{ asset('storage/images/') }}"/>
                 
                     @foreach ($fixture->teams as $team)
@@ -26,7 +26,7 @@
             @empty
             <p class="font-bold text-5xl">No fixtures to display.</p> 
         @endforelse
-        <a href="{{route('fixtures.create')}}" class="btn-link ml-auto">Create Fixture</a>
+        <a href="{{route('user.fixtures.create')}}" class="btn-link ml-auto">Create Fixture</a>
         </div>
     </div>
 </div>

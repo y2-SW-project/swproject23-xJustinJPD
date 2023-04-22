@@ -8,10 +8,10 @@
             <div class="d-flex">
 
             {{-- link to the edit player view --}}
-            <a href="{{route('fixtures.edit', $fixture)}}" class="btn btn-link ml-auto">Edit Fixture</a>
+            <a href="{{route('admin.fixtures.edit', $fixture)}}" class="btn btn-link ml-auto">Edit Fixture</a>
 
             {{-- form designed to delete a note --}}
-            <form action="{{ route('fixtures.destroy', $fixture) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.fixtures.destroy', $fixture) }}" method="post" enctype="multipart/form-data">
             {{-- method and csrf from blade functionality --}}
             @method('delete')
             @csrf

@@ -12,7 +12,7 @@
         <!-- CHECKOUT TAG END -->
 
         <!-- CHECKOUT CONTENT -->
-        <form action="{{ route('fixtures.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.fixtures.store') }}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="container ps-0 pe-5">
             <div class="row d-sm-block d-lg-flex ">

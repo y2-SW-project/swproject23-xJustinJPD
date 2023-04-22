@@ -7,16 +7,6 @@
 
             <div class="d-flex">
 
-            {{-- link to the edit team view --}}
-            <a href="{{route('teams.edit', $team)}}" class="btn btn-link ml-auto">Edit team</a>
-
-            {{-- form designed to delete a note --}}
-            <form action="{{ route('teams.destroy', $team) }}" method="post" enctype="multipart/form-data">
-            {{-- method and csrf from blade functionality --}}
-            @method('delete')
-            @csrf
-            {{-- button to delete with a confirmation button to make sure --}}
-            <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('Are you sure you want to delete this team?')">Delete Car</button>
             </form>
 
             
@@ -43,23 +33,9 @@
 
                 <hr>
 
-                @forelse ($players as $player)
-            <div class="">
-                <a href="{{ route('players.show', $player->id) }}">
-                    <img src="{{ asset('storage/images/' . $player->picture) }}"/>
-                
-                
-
-                <h2 class=""> 
-                    <a href="">{{ $player->name }}</a>
-                </h2>
-                </a>
-            </div>
-
-            {{-- empty function incase of user having no teams --}}
-            @empty
-            <p class="font-bold text-5xl">No players to display.</p> 
-        @endforelse
+                @foreach ($team->players as $player)
+                    <h2>{{$player->name}}</h2>
+                @endforeach
         
     </div>
 </div>

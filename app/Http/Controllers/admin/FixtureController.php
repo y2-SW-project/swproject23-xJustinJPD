@@ -23,10 +23,11 @@ class FixtureController extends Controller
         $fixtures = Fixture::with('teams')->get();
 
         $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         // returns the index.blade.php view with the teams variables included in the transaction
 
-        return view ('fixtures.index', compact('fixtures'));
+        return view ('admin.fixtures.index', compact('fixtures'));
     }
 
     /**
@@ -39,8 +40,9 @@ class FixtureController extends Controller
                 // returns the create.blade.php view
                 $user = Auth::user();
                 $teams = Team::all();
+                $user->authorizeRoles('admin');
         
-                return view ('fixtures.create')->with('teams', $teams);
+                return view ('admin.fixtures.create')->with('teams', $teams);
     }
 
     /**
@@ -70,11 +72,12 @@ class FixtureController extends Controller
                         $fixture->save();
                 
                         $user = Auth::user();
+                        $user->authorizeRoles('admin');
                 
                         $fixture->teams()->attach($request->teams);
                 
                         // returns the index.blade.php view
-                        return to_route('fixtures.index');
+                        return to_route('admin.fixtures.index');
     }
 
     /**
@@ -84,9 +87,10 @@ class FixtureController extends Controller
     {
         $user = Auth::user();
         $teams = Team::all();
+        $user->authorizeRoles('admin');
 
 
-        return view ('fixtures.show')->with('fixture', $fixture)->with('teams', $teams);
+        return view ('admin.fixtures.show')->with('fixture', $fixture)->with('teams', $teams);
     }
 
     /**
@@ -96,8 +100,9 @@ class FixtureController extends Controller
     {
         $user = Auth::user();
         $teams = Team::all();
+        $user->authorizeRoles('admin');
 
-        return view ('fixtures.edit')->with('fixture', $fixture)->with('teams', $teams);
+        return view ('admin.fixtures.edit')->with('fixture', $fixture)->with('teams', $teams);
     }
 
     /**
@@ -119,11 +124,12 @@ class FixtureController extends Controller
                                 ]);
                         
                                 $user = Auth::user();
+                                $user->authorizeRoles('admin');
 
                                 $fixture->teams()->attach($request->teams);
                         
                                 //  giving us the show.blade.php view along with a success tag saying that the update was completed
-                                return to_route('fixtures.show', $fixture)->with('success', 'fixture updated succesfully.');
+                                return to_route('admin.fixtures.show', $fixture)->with('success', 'fixture updated succesfully.');
     }
 
     /**
@@ -137,9 +143,10 @@ class FixtureController extends Controller
         $fixture->delete();
 
         $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         // returning the index view with a successful delete messge
-        return to_route('fixtures.index')->with('success', 'fixture deleted successfully.');
+        return to_route('admin.fixtures.index')->with('success', 'fixture deleted successfully.');
     }
 
     public function checkFixtureTeams($id)
