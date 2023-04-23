@@ -24,12 +24,6 @@ class PlayerController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        // $teams = team::paginate(5);
-
-        // $teams = team::with('manufacturer')->get();
-
-        // returns the index.blade.php view with the teams variables included in the transaction
-
         return view ('admin.teams.index')->with('teams', $teams)->with('player', $players);
     }
 
@@ -172,11 +166,10 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Player $player)
     {
 
-        // validation of user and player
-        $player = Player::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        // validation of user and playe
 
         // deleting the player object specified
         $player->delete();
